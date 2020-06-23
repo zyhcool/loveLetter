@@ -16,7 +16,7 @@ import { dbConnect } from "./init/dbConnection";
 import { Cache } from "./init/cache";
 const setupServer = async () => {
     // Mysql connection
-    await dbConnect();
+    // await dbConnect();
 
     const app = new Koa();
 

@@ -1,11 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { Length, IsEmail } from "class-validator";
+import { Entity, Column } from "typeorm";
+import { GeneralEntity } from "./generalEntity";
 
 @Entity()
-export class LoveLetter {
-    @PrimaryGeneratedColumn("uuid")
-    id: string;
-
+export class LoveLetter extends GeneralEntity {
     @Column()
     images: string[];
 
@@ -14,19 +11,7 @@ export class LoveLetter {
 
     @Column()
     mode: LoveLetterMode;
-
-    @CreateDateColumn()
-    createdAt: Date;
-
-    @UpdateDateColumn()
-    updatedAt: Date;
 }
-
-// export const loveLetterSchema = {
-//     id: { type: "string", required: true },
-//     images: { type: "Array", required: true },
-//     sentence: { type: "string", required: true },
-// };
 
 export enum LoveLetterMode {
     me, // 个人发挥

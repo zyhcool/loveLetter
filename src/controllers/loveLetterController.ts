@@ -10,12 +10,14 @@ import { config } from "../config";
 
 @Controller("/loveLetter")
 export default class LoveLetterController {
-    @Inject((type) => LoveLetterService)
+    // @Inject((type) => LoveLetterService)
     loveLetterService: LoveLetterService;
 
     @Authorized()
     @Post("/")
     async createLoveLetter(@Body() body: { image: string; sentence: string }) {
+        console.log(body);
+        return;
         const data = Object.assign(new LoveLetter(), body);
         return await this.loveLetterService.createLoveLetter(data);
     }

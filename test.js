@@ -1,15 +1,6 @@
-function asyncFunc() {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve("async func");
-            console.log("end");
-        }, 1000);
-    });
-}
+const crypto = require("crypto");
 
-async function test() {
-    const ha = await asyncFunc();
-    return ha;
-}
+const secret = "ilovechina";
+const hash = crypto.createHmac("sha256", secret).update("123456").digest("hex");
 
-console.log(test());
+console.log(crypto.verify("sha256", "123456"));

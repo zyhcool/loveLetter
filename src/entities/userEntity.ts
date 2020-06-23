@@ -1,36 +1,33 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { Length, IsEmail, IsBoolean } from "class-validator";
+import { Entity, Column } from "typeorm";
+import { GeneralEntity } from "./generalEntity";
+import crypto from "crypto";
 
 @Entity()
-export class User {
-    @PrimaryGeneratedColumn("uuid")
-    id: number;
-
-    @Column({
-        length: 80,
-    })
-    @Length(10, 80)
+export class User extends GeneralEntity {
+    @Column()
     name: string;
 
-    @Column({
-        length: 100,
-    })
-    @Length(10, 100)
-    @IsEmail()
+    @Column()
     email: string;
 
-    @Column()
+    @Column({
+        length: 16,
+    })
     password: string;
 
     @Column()
-    @IsBoolean()
     isManager: boolean;
 
-    @CreateDateColumn()
-    createdAt: Date;
-
-    @UpdateDateColumn()
-    updatedAt: Date;
+    hashpassword = (p: string) => {
+        return crypto.createHash("sha256").update(p).digest("hex");
+    };
+    comparePassword = (p: string) => {
+        const hashedPwd = this.hashpassword(p);
+        if (hashedPwd === this.password) {
+            return true;
+        }
+        return false;
+    };
 }
 
 // export const userSchema = {

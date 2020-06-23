@@ -1,7 +1,7 @@
 import Koa from "koa";
 import jwt from "koa-jwt";
-import bodyParser from "koa-bodyparser";
 import helmet from "koa-helmet";
+import bodyParser from "koa-bodyparser";
 import cors from "@koa/cors";
 import winston from "winston";
 import "reflect-metadata";
@@ -24,6 +24,7 @@ const setupServer = async () => {
     app.use(cors());
     app.use(logger(winston));
     app.use(bodyParser());
+    // app.use(koaBody());
 
     // app.use(jwt({ secret: config.jwtSecret }).unless({ path: [/^\/swagger-/] }));
 

@@ -19,3 +19,9 @@ dist/**/*
 # Logging files
 *.log
 *.pyc
+
+
+# file upload path
+upload
+
+package-lock.json

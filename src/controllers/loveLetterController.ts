@@ -15,7 +15,7 @@ export default class LoveLetterController {
 
     @Authorized()
     @Post("/")
-    async createLoveLetter(@Body() body: { image: string; sentence: string }) {
+    async createLoveLetter(@Body() body: { images: string; sentence: string }) {
         console.log(body);
         return;
         const data = Object.assign(new LoveLetter(), body);

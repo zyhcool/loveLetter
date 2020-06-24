@@ -14,6 +14,7 @@ import { useKoaServer, Action, useContainer } from "routing-controllers";
 import { Container } from "typedi";
 import { dbConnect } from "./init/dbConnection";
 import { Cache } from "./init/cache";
+import { initProtectedRouters } from "./init/jwtRouters";
 const setupServer = async () => {
     // Mysql connection
     // await dbConnect();
@@ -24,7 +25,7 @@ const setupServer = async () => {
     app.use(cors());
     app.use(logger(winston));
     app.use(bodyParser());
-    // app.use(koaBody());
+    app.use(initProtectedRouters);
 
     // app.use(jwt({ secret: config.jwtSecret }).unless({ path: [/^\/swagger-/] }));
 

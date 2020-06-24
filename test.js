@@ -1,6 +1,8 @@
-const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
-const secret = "ilovechina";
-const hash = crypto.createHmac("sha256", secret).update("123456").digest("hex");
+const secret = "your-secret-whatever";
 
-console.log(crypto.verify("sha256", "123456"));
+const token = jwt.sign({ name: "zyh", age: 20, country: "china" }, secret);
+console.log(token);
+let data = jwt.verify(token, secret);
+console.log(data);

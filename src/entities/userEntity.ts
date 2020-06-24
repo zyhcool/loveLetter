@@ -18,16 +18,16 @@ export class User extends GeneralEntity {
     @Column()
     isManager: boolean;
 
-    hashpassword = (p: string) => {
-        return crypto.createHash("sha256").update(p).digest("hex");
-    };
-    comparePassword = (p: string) => {
-        const hashedPwd = this.hashpassword(p);
-        if (hashedPwd === this.password) {
-            return true;
-        }
-        return false;
-    };
+    // hashpassword = (p: string) => {
+    //     return crypto.createHash("sha256").update(p).digest("hex");
+    // };
+    // comparePassword = (p: string) => {
+    //     const hashedPwd = this.hashpassword(p);
+    //     if (hashedPwd === this.password) {
+    //         return true;
+    //     }
+    //     return false;
+    // };
 }
 
 // export const userSchema = {

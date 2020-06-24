@@ -42,9 +42,7 @@ export default class UserController {
         // });
         const user = new User();
         user.password = "haha";
-        console.log(user.comparePassword(password));
-        return;
         const token = jwt.sign(body, config.jwtSecret);
-        return token;
+        return { user, token };
     }
 }

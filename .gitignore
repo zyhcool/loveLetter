@@ -24,4 +24,5 @@ dist/**/*
 # file upload path
 upload
 
-package-lock.json
+
+.vscode

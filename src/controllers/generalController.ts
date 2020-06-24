@@ -26,9 +26,8 @@ import send from "koa-send";
 @Controller("/general")
 export default class GeneralController {
     @Authorized()
-    @Get("/")
-    public async helloWorld(@CurrentUser() user: User): Promise<any> {
-        console.log(user);
+    @Get("/helloworld")
+    public async helloWorld(): Promise<any> {
         return "Hello World";
     }
 

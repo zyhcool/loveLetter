@@ -1,19 +1,14 @@
-FROM node:10-alpine
+FROM node:lts-alpine3.9
 
-RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
+# 在容器中创建一个目录
+RUN mkdir -p /usr/src/loveLetter/
 
-WORKDIR /home/node/app
+WORKDIR /usr/src/loveLetter/
 
-COPY package*.json ./
-
-USER node
+COPY . /usr/src/loveLetter/
 
 RUN npm install
 
-COPY --chown=node:node . .
+EXPOSE 3001
 
-RUN npm run build
-
-EXPOSE 3000
-
-CMD [ "npm", "run", "start" ]
+CMD npm run start

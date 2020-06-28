@@ -9,7 +9,7 @@ export interface Config {
     dbsslconn: boolean;
     jwtSecret: string;
     databaseUrl: string;
-    dbEntitiesPath: string[];
+    entities: string[];
     cronJobExpression: string;
     loveLetterModeKey: string;
     loveLetterModeDefault: LoveLetterMode;
@@ -19,12 +19,12 @@ export interface Config {
 const isDevMode = process.env.NODE_ENV == "development";
 
 const config: Config = {
-    port: +(process.env.PORT || 3000),
+    port: +(process.env.PORT || 3001),
     debugLogging: isDevMode,
     dbsslconn: !isDevMode,
     jwtSecret: process.env.JWT_SECRET || "your-secret-whatever",
-    databaseUrl: process.env.DATABASE_URL || "postgres://user:pass@localhost:5432/mysql",
-    dbEntitiesPath: [...(isDevMode ? ["src/entity/**/*.ts"] : ["dist/entity/**/*.js"])],
+    databaseUrl: process.env.DATABASE_URL || "mongodb://47.93.236.248:27017/loveLetter",
+    entities: ["src/entities/**/*.ts"],
     cronJobExpression: "0 * * * *",
     loveLetterModeKey: "lltKey",
     loveLetterModeDefault: LoveLetterMode.me,

@@ -5,15 +5,8 @@
     "main": "dist/server.js",
     "scripts": {
         "dev": "nodemon --watch src -e ts,tsx --exec ts-node src/server.ts",
-        "build-ts": "tsc",
-        "copy-static-assets": "ts-node copyStaticAssets.ts",
-        "lint": "tsc --noEmit && eslint \"**/*.{js,ts}\" --quiet --fix",
-        "serve": "node dist/server.js",
-        "build": "npm run lint && npm run build-ts && npm run copy-static-assets",
-        "start": "npm run serve",
-        "test:integration:heroku": "newman run integrationtests/node-koa-typescript.postman_collection.json -e integrationtests/env/heroku-dev.postman_environment.json",
-        "test:integration:local": "newman run integrationtests/node-koa-typescript.postman_collection.json -e integrationtests/env/local-dev.postman_environment.json",
-        "test:load": "locust --no-web -c 50 -r 10 -f loadtests/locustfile.py --run-time 1m --host=https://node-typescript-koa-rest.herokuapp.com"
+        "build": "tsc",
+        "start": "npm run build && node dist/server.js"
     },
     "engines": {
         "node": "12.x.x",
@@ -50,7 +43,7 @@
         "@types/koa__router": "^8.0.2",
         "@types/node": "^12.12.6",
         "@types/shelljs": "^0.8.7",
-        "eslint": "^6.8.0",
+        "@types/uuid": "^8.0.0",
         "nodemon": "^2.0.2",
         "shelljs": "^0.8.3",
         "ts-node": "^8.8.2",
@@ -71,12 +64,14 @@
         "koa-multer": "^1.0.2",
         "koa-router": "^8.0.0-alpha.1",
         "koa-send": "^5.0.0",
+        "mongodb": "^3.5.9",
         "mysql": "^2.18.1",
         "pg": "^7.12.1",
         "reflect-metadata": "^0.1.13",
         "routing-controllers": "^0.8.0",
         "typedi": "^0.8.0",
         "typeorm": "^0.2.25",
+        "uuid": "^8.2.0",
         "winston": "^3.2.1"
     }
 }

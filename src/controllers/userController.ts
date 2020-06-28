@@ -9,7 +9,7 @@ import { config } from "../config";
 
 @Controller("/user")
 export default class UserController {
-    // @Inject((type) => UserService)
+    @Inject((type) => UserService)
     userService: UserService;
 
     @Authorized()
@@ -22,26 +22,28 @@ export default class UserController {
     @Authorized()
     @Post("/")
     async register(@Body() body: { email: string; password: string }) {
-        const data = new UserRegistryData();
+        const data = Object.assign({}, new UserRegistryData(), body)
         const errors = await validate(data);
-        if (errors) {
+        if (errors && errors.length > 0) {
             throw errors;
         }
         const user = Object.assign(new User(), data);
-        return await this.userService.repository.save(user);
+        return await this.userService.save(user);
     }
 
     @Authorized()
     @Post("/login")
     async login(@Body() body: { email: string; password: string }) {
         const { email, password } = body;
-        // const user = await this.userService.findOne({
-        //     where: {
-        //         email: { $eq: email },
-        //     },
-        // });
-        const user = new User();
-        user.password = "haha";
+        const user = await this.userService.findOne({
+            where: {
+                email,
+                password,
+            },
+        });
+        if (!user) {
+            throw new Error('username or password error');
+        }
         const token = jwt.sign(body, config.jwtSecret);
         return { user, token };
     }

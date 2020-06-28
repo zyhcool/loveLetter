@@ -17,7 +17,7 @@ import { Cache } from "./init/cache";
 import { initProtectedRouters } from "./init/jwtRouters";
 const setupServer = async () => {
     // Mysql connection
-    // await dbConnect();
+    await dbConnect();
 
     const app = new Koa();
 
@@ -27,7 +27,6 @@ const setupServer = async () => {
     app.use(bodyParser());
     app.use(initProtectedRouters);
 
-    // app.use(jwt({ secret: config.jwtSecret }).unless({ path: [/^\/swagger-/] }));
 
     // init routing-controllers
     useContainer(Container);

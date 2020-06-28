@@ -1,17 +1,26 @@
-version: '3.1'
-services :
-  db:
-    image: postgres:10-alpine
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: pass
-      POSTGRES_DB: apidb
-  admin:
-    image: adminer
+# 单体部署
+version: '3.7'
+services:
+  database:
+    image: mongo:bionic
     restart: always
-    depends_on: 
-      - db
+    volumes:
+      - ~/data/db/loveLetter:/data/db
     ports:
-      - 8080:8080
+      - 27017:27017
+    networks:
+      - loveLetter-web-net
+  web:
+    build: .
+    image: loveLetter
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - database
+    ports:
+      - 3001:3001
+    networks:
+      - loveLetter-web-net
+networks:
+  loveLetter-web-net:
+    driver: bridge

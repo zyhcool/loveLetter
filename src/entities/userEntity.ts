@@ -1,9 +1,14 @@
-import { Entity, Column } from "typeorm";
-import { GeneralEntity } from "./generalEntity";
-import crypto from "crypto";
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, CreateDateColumn, UpdateDateColumn, ObjectIdColumn } from "typeorm";
+import { getUUid } from "../utils/uuidGenerator";
 
 @Entity()
-export class User extends GeneralEntity {
+export class User {
+    @ObjectIdColumn()
+    id: string;
+
+    @PrimaryColumn("uuid")
+    userId: string;
+
     @Column()
     name: string;
 
@@ -18,20 +23,15 @@ export class User extends GeneralEntity {
     @Column()
     isManager: boolean;
 
-    // hashpassword = (p: string) => {
-    //     return crypto.createHash("sha256").update(p).digest("hex");
-    // };
-    // comparePassword = (p: string) => {
-    //     const hashedPwd = this.hashpassword(p);
-    //     if (hashedPwd === this.password) {
-    //         return true;
-    //     }
-    //     return false;
-    // };
+    @CreateDateColumn()
+    createdAt: Date;
+
+    @UpdateDateColumn()
+    updatedAt: Date;
+
+    constructor() {
+        this.userId = getUUid();
+    }
+
 }
 
-// export const userSchema = {
-//     id: { type: "number", required: true, example: 1 },
-//     name: { type: "string", required: true, example: "Javier" },
-//     email: { type: "string", required: true, example: "avileslopez.javier@gmail.com" },
-// };

@@ -34,7 +34,8 @@ export default class GeneralController {
     @Authorized()
     @Put("/changeMode")
     async changeLLMode(@QueryParams() query: { mode: LoveLetterMode }) {
-        Cache.set(config.loveLetterModeKey, query.mode);
+        Cache.set(config.loveLetterModeKey, Number(query.mode));
+        return { mode: Cache.get(config.loveLetterModeKey) };
     }
 
     @Authorized()

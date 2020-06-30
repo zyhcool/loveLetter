@@ -12,7 +12,7 @@ export class ErrorHandler implements KoaMiddlewareInterface {
             console.log(e)
             ctx.body = {
                 success: false,
-                data: e
+                data: e.message
             }
         }
     }

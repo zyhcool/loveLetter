@@ -22,6 +22,8 @@ import { config } from "../config";
 import { existsSync, mkdirSync, writeFileSync, createReadStream, readFileSync } from "fs";
 import { resolve } from "path";
 import send from "koa-send";
+import { Worker } from "worker_threads";
+import { WorkerThreadsManager } from "../utils/workerThreadsManager";
 
 @Controller("/general")
 export default class GeneralController {
@@ -59,4 +61,21 @@ export default class GeneralController {
     async getImage(@QueryParam("url") url: string) {
         return createReadStream(url);
     }
+
+    @Get("/test")
+    async cputest() {
+        console.log("----- begin!! ------")
+        // let time = await WorkerThreadsManager.createWorker('./work.js')
+        let time = cpuComsume();
+        console.log(time);
+        return time;
+    }
+}
+
+
+export function cpuComsume() {
+    const start = Date.now();
+    for (let i = 0; i < 2 * 10 ** 9; i++) { };
+    const end = Date.now();
+    return (end - start) / 1000;
 }

@@ -1,7 +1,7 @@
 import { Worker, WorkerOptions } from "worker_threads"
 import events from 'events'
 
-export class WorkerThreadsManager extends events.EventEmitter {
+export class WorkerThreadsManager {
     static workers: number = 0;
 
     static createWorker(filename: string, data?: WorkerOptions) {

@@ -58,24 +58,34 @@ export default class GeneralController {
 
     @Get("/image")
     @ContentType("image/*")
-    async getImage(@QueryParam("url") url: string) {
+    async getImage(
+        @QueryParam("url") url: string,
+        @Ctx() ctx: Context,
+    ) {
+        ctx.set("Cache-control", 'max-age=86400')
+        ctx.set("etag", 'fakeEtag')
+        ctx.set("Last-Modified", 'Wed, 01 Jul 2020 08:42:47 GMT')
         return createReadStream(url);
     }
 
     @Get("/test")
     async cputest() {
         console.log("----- begin!! ------")
-        // let time = await WorkerThreadsManager.createWorker('./work.js')
-        let time = cpuComsume();
+        let time = await WorkerThreadsManager.createWorker('./work.js')
+        // let time = await cpuComsume();
+        setTimeout(() => {
+            console.log('HELLO WORLD');
+        }, 0);
         console.log(time);
         return time;
     }
 }
 
 
-export function cpuComsume() {
+export async function cpuComsume() {
     const start = Date.now();
     for (let i = 0; i < 2 * 10 ** 9; i++) { };
     const end = Date.now();
-    return (end - start) / 1000;
+    const time = (end - start) / 1000;
+    return time;
 }

@@ -5,14 +5,14 @@ services:
     image: mongo:bionic
     restart: always
     volumes:
-      - ~/data/db/loveLetter:/data/db
+      - ~/data/db/loveletter:/data/db
     ports:
       - 27017:27017
     networks:
-      - loveLetter-web-net
+      - loveletter-web-net
   web:
     build: .
-    image: loveLetter
+    image: loveletter
     environment:
       - NODE_ENV=production
     depends_on:
@@ -20,7 +20,7 @@ services:
     ports:
       - 3001:3001
     networks:
-      - loveLetter-web-net
+      - loveletter-web-net
 networks:
-  loveLetter-web-net:
+  loveletter-web-net:
     driver: bridge

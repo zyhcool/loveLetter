@@ -63,8 +63,8 @@ export default class GeneralController {
         @Ctx() ctx: Context,
     ) {
         ctx.set("Cache-control", 'max-age=86400')
-        ctx.set("etag", 'fakeEtag')
-        ctx.set("Last-Modified", 'Wed, 01 Jul 2020 08:42:47 GMT')
+        // ctx.set("etag", 'fakeEtag')
+        // ctx.set("Last-Modified", 'Wed, 01 Jul 2020 08:42:47 GMT')
         return createReadStream(url);
     }
 
